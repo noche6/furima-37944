@@ -12,67 +12,56 @@ RSpec.describe User, type: :model do
    end
    context "登録できないとき" do
     it 'nicknameが空では登録できない' do
-      user = FactoryBot.build(:user)
       @user.nickname = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "Nickname can't be blank"
     end
     it 'emailが空では登録できない' do
-      user = FactoryBot.build(:user)
       @user.email = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "Email can't be blank"
     end
     it 'first(全角)が空では登録できない'do
-      user = FactoryBot.build(:user)
       @user.first_name_zenkaku = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "First name zenkaku can't be blank"
     end
     it 'first(全角)でなければ登録できない'do
-      user = FactoryBot.build(:user)
       @user.first_name_zenkaku = 'hannkaku'
       @user.valid?
       expect(@user.errors.full_messages).to include "First name zenkaku is invalid"
     end
     it 'last(全角)が空では登録できない' do
-      user = FactoryBot.build(:user)
       @user.last_name_zenkaku = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "Last name zenkaku can't be blank"
     end
     it 'last(全角)でなければ登録できない'do
-      user = FactoryBot.build(:user)
       @user.last_name_zenkaku = 'hannkaku'
       @user.valid?
       expect(@user.errors.full_messages).to include "Last name zenkaku is invalid"
     end
     it 'first(全角カナ)が空では登録できない' do
-      user = FactoryBot.build(:user)
       @user.first_name_katakana = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "First name katakana can't be blank"
     end
     it 'first(全角カナ)でなければ登録できない' do
-      user = FactoryBot.build(:user)
       @user.first_name_katakana = '全角'
       @user.valid?
       expect(@user.errors.full_messages).to include "First name katakana is invalid"
     end
     it 'last(全角カナ)が空では登録できない' do
-      user = FactoryBot.build(:user)
       @user.last_name_katakana = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "Last name katakana can't be blank"
     end
     it 'last(全角カナ)でなければ登録できない' do
-      user = FactoryBot.build(:user)
       @user.last_name_katakana = '全角'
       @user.valid?
       expect(@user.errors.full_messages).to include "Last name katakana is invalid"
     end
     it 'birthdayが空では登録できない' do
-      user = FactoryBot.build(:user)
       @user.birthday = ''
       @user.valid?
       expect(@user.errors.full_messages).to include "Birthday can't be blank"
@@ -97,6 +86,21 @@ RSpec.describe User, type: :model do
     it 'passwordとpassword_confirmationが不一致では登録できない' do
       @user.password = '123456'
       @user.password_confirmation = '1234567'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+    it '英字のみのパスワードでは登録できない' do
+      @user.password = 'aaaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+    it '数字のみのパスワードでは登録できない' do
+      @user.password = '123456'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+    it '全角文字を含むパスワードでは登録できない' do
+      @user.password = 'AAAAAA'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
