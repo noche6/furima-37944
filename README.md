@@ -27,8 +27,8 @@
 | situation_id   | integer   | null: false                   |
 | burden_id      | integer   | null: false                   |
 | prefectures_id | integer   | null: false                   |
-| date_id        | integer   | null: false                   |
-| user           | reference | null: false,foreign_key: true |
+| delivery_id        | integer   | null: false                   |
+| user           | references | null: false,foreign_key: true |
 
 
 ### Association
