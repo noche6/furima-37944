@@ -72,27 +72,27 @@ RSpec.describe Item, type: :model do
         expect(@items.errors.full_messages).to include 'Price is invalid', 'Price is not a number'
       end
       it 'カテゴリーに「---」が選択されている場合は出品できない' do
-        @items.category_id = '---'
+        @items.category_id = 'id: 1'
         @items.valid?
         expect(@items.errors.full_messages).to include "Category can't be blank"
       end
       it '商品の状態に「---」が選択されている場合は出品できない' do
-        @items.situation_id = '---'
+        @items.situation_id = 'id: 1'
         @items.valid?
         expect(@items.errors.full_messages).to include "Situation can't be blank"
       end
       it '・配送料の負担に「---」が選択されている場合は出品できない' do
-        @items.burden_id = '---'
+        @items.burden_id = 'id: 1'
         @items.valid?
         expect(@items.errors.full_messages).to include "Burden can't be blank"
       end
       it '発送元の地域に「---」が選択されている場合は出品できない' do
-        @items.prefectures_id = ''
+        @items.prefectures_id = 'id: 1'
         @items.valid?
         expect(@items.errors.full_messages).to include "Prefectures can't be blank"
       end
       it '発送までの日数に「---」が選択されている場合は出品できない' do
-        @items.delivery_id = '---'
+        @items.delivery_id = 'id: 1'
         @items.valid?
         expect(@items.errors.full_messages).to include "Delivery can't be blank"
       end
