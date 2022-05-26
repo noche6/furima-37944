@@ -27,8 +27,8 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @items.update(items_params)
-      redirect_to item_path(@items.id)
+    if @item.update(items_params)
+      redirect_to item_path(@item.id)
     else
       render :edit
     end
@@ -42,10 +42,10 @@ class ItemsController < ApplicationController
   end
 
   def set_item
-    @items = Item.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def move_to_index
-    redirect_to action: :index unless @items.user.id == current_user.id
+    redirect_to action: :index unless @item.user.id == current_user.id
   end
 end
