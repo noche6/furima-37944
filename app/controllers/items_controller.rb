@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:edit, :show,:update]
+  before_action :set_item, only: [:edit, :show, :update]
   before_action :move_to_index, except: [:index, :show, :new, :create]
 
   def index
-    @items =Item.all.order("created_at ASC")
+    @items = Item.all.order('created_at ASC')
   end
 
   def new
@@ -21,16 +21,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    
   end
 
   def edit
-    
-
   end
 
   def update
-    
     if @items.update(items_params)
       redirect_to item_path(@items.id)
     else
@@ -50,9 +46,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless @items.user.id == current_user.id
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless @items.user.id == current_user.id
   end
-  
 end
