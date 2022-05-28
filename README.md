@@ -18,16 +18,16 @@
 
 ## items
 
-|Column        |Type       |Options                        |
-|----------------|-----------|-------------------------------|
-| price          | string    | null: false                   |
-| item_name      | string    | null: false                   |
-| description    | text      | null: false                   |
-| category_id    | integer   | null: false                   |
-| situation_id   | integer   | null: false                   |
-| burden_id      | integer   | null: false                   |
-| prefectures_id | integer   | null: false                   |
-| delivery_id        | integer   | null: false                   |
+|Column          |Type        |Options                        |
+|----------------|------------|-------------------------------|
+| price          | string     | null: false                   |
+| item_name      | string     | null: false                   |
+| description    | text       | null: false                   |
+| category_id    | integer    | null: false                   |
+| situation_id   | integer    | null: false                   |
+| burden_id      | integer    | null: false                   |
+| prefectures_id | integer    | null: false                   |
+| delivery_id    | integer    | null: false                   |
 | user           | references | null: false,foreign_key: true |
 
 
@@ -36,32 +36,32 @@
 - has_one :purchase_record
 
 
-## purchase_records
+## orders
 
-|Column|Type       |Options                        |
-|------|-----------|-------------------------------|
-| user | reference | null: false,foreign_key: true |
-| item | reference | null: false,foreign_key: true |
+|Column|Type        |Options                        |
+|------|------------|-------------------------------|
+| user | references | null: false,foreign_key: true |
+| item | references | null: false,foreign_key: true |
 
 
 ### Association
 - belongs_to :user
 - belongs_to :item
-- has_one :shipping_address
+- has_one :address
 
 
-## shipping_addresses
+## addresses
 
-|Column           |Type       |Options                        |
-|-----------------|-----------|-------------------------------|
-| postal_code     | string    | null: false                   |
-| prefectures_id  | integer   | null: false                   |
-| municipalities  | string    | null: false                   |
-| address         | string    | null: false                   |
-| building        | string    |                               |
-| number          | string    | null: false                   |
-| purchase_record | reference | null: false,foreign_key: true |
+|Column           |Type        |Options                        |
+|-----------------|------------|-------------------------------|
+| postal_code     | string     | null: false                   |
+| prefectures_id  | integer    | null: false                   |
+| municipalities  | string     | null: false                   |
+| address         | string     | null: false                   |
+| building        | string     |                               |
+| number          | string     | null: false                   |
+| order           | references | null: false,foreign_key: true |
 
 
 ### Association
-- belongs_to :purchase_record
+- belongs_to :order
