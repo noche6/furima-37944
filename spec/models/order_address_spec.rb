@@ -48,8 +48,18 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Number can't be blank")
       end
-      it '電話番号は、10桁以上11桁以内の半角数値のみ保存可能なこと' do
+      it '電話番号は、半角数値のみ保存可能なこと' do
         @order_address.number = '000-0000-0000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Number is invalid")
+      end
+      it '電話番号は、9桁以下だと保存できない' do
+        @order_address.number = '000000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Number is invalid")
+      end
+      it '電話番号は、12桁以上だと保存できない' do
+        @order_address.number = '000000000000'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Number is invalid")
       end
@@ -57,6 +67,16 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.token = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空だと保存できない' do
+        @order_address.user_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと保存できない' do
+        @order_address.item_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
