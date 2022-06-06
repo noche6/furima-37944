@@ -13,9 +13,9 @@ class Item < ApplicationRecord
   validates :burden_id, presence: true
   validates :prefectures_id, presence: true
   validates :delivery_id, presence: true
-  validates :image, presence: true
+  validates :images, presence: true
 
   belongs_to :user
   has_one :order
-  has_one_attached :image
+  has_many_attached :images
 end
